@@ -1,0 +1,29 @@
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
+
+namespace Identity.Infrastructure.Configurations
+{
+    internal class IdentityUserConfiguration : IEntityTypeConfiguration<IdentityUser<Guid>>
+    {
+        public void Configure(EntityTypeBuilder<IdentityUser<Guid>> builder)
+        {
+            PasswordHasher<IdentityUser<Guid>> hasher = new PasswordHasher<IdentityUser<Guid>>();
+
+            builder.HasData(new[]
+            {
+            new IdentityUser<Guid>()
+            {
+                Id = Guid.Parse("672979c9-d851-4bb7-83b6-a75e906dbefa"),
+                UserName = "Anybody",
+                Email = "anybody@gmail.com",
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+                ConcurrencyStamp = Guid.NewGuid().ToString(),
+                SecurityStamp = Guid.NewGuid().ToString(),
+                PasswordHash = hasher.HashPassword(null, "Anybody_1")
+            }
+        });
+        }
+    }
+}
